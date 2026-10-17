@@ -1,1 +1,123 @@
 
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>یک دعوت متفاوت 🍂</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="falling-leaves">🍂 🍁 🍂 🍁 🍂 🍂 🍁</div>
+
+    <main id="app">
+
+        <section class="screen active" id="welcome">
+            <div class="card">
+                <div class="character">🧑</div>
+                <h1>یک دعوت متفاوت...</h1>
+                <p>قبل از اینکه ادامه بدی، باید یک انتخاب مهم بکنی.</p>
+                <button onclick="nextStep('gender')">شروع کنیم 🍂</button>
+            </div>
+        </section>
+
+        <section class="screen" id="gender">
+            <div class="card">
+                <h2>اول بگو...</h2>
+                <p>دوست داری کاراکترت چطور باشه؟</p>
+                <div class="choices">
+                    <button onclick="selectGender('female')">👩 دختر</button>
+                    <button onclick="selectGender('male')">👨 پسر</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen" id="invite">
+            <div class="card">
+                <div id="character" class="character">🧑</div>
+                <h2>یک دعوت دوستانه 🍁</h2>
+                <p>حاضری با من یک قرار پاییزی داشته باشی؟</p>
+                <div class="yes-no">
+                    <button class="yes" onclick="nextStep('outfit')">بله ❤️</button>
+                    <button id="noButton" class="no">نه 😏</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen" id="outfit">
+            <div class="card">
+                <h2>استایلت رو انتخاب کن 👗</h2>
+                <div id="outfitCharacter" class="character">🧑</div>
+                <div class="outfit-grid">
+                    <button onclick="selectOutfit('angel')">👼 فرشته</button>
+                    <button onclick="selectOutfit('devil')">😈 شیطان</button>
+                    <button onclick="selectOutfit('sport')">🏃 اسپورت</button>
+                    <button onclick="selectOutfit('formal')">🤵 رسمی</button>
+                    <button onclick="selectOutfit('casual')">👕 کژوال</button>
+                    <button onclick="selectOutfit('autumn')">🧥 پاییزی</button>
+                    <button onclick="selectOutfit('royal')">👑 سلطنتی</button>
+                    <button onclick="selectOutfit('mysterious')">🕶️ مرموز</button>
+                </div>
+                <button id="outfitNext" class="continue"
+                        onclick="nextStep('place')" disabled>ادامه</button>
+            </div>
+        </section>
+
+        <section class="screen" id="place">
+            <div class="card">
+                <h2>قرار کجا باشه؟ 📍</h2>
+                <div class="choices">
+                    <button onclick="selectPlace('کافه')">☕ کافه</button>
+                    <button onclick="selectPlace('رستوران')">🍽️ رستوران</button>
+                    <button onclick="selectPlace('پارک')">🌳 پارک</button>
+                    <button onclick="selectPlace('مکان گردشگری')">🏛️ مکان گردشگری</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen" id="mystery">
+            <div class="card mystery-card">
+                <div class="mystery-icon">🔐</div>
+                <h2>یک راز کوچک...</h2>
+                <p>مکان دقیق قرار فعلاً محرمانه است.</p>
+                <p>کمی قبل از قرار، آدرس اصلی برایت پیامک می‌شود...</p>
+                <button onclick="nextStep('gift')">قبول کردم 🍂</button>
+            </div>
+        </section>
+
+        <section class="screen" id="gift">
+            <div class="card">
+                <h2>یک انتخاب آخر 🎁</h2>
+                <p>اگر قرار بود یک هدیه بگیری، کدام را انتخاب می‌کردی؟</p>
+                <div class="choices">
+                    <button onclick="selectGift('گل')">🌹 گل</button>
+                    <button onclick="selectGift('شکلات')">🍫 شکلات</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen" id="info">
+            <div class="card">
+                <h2>حالا نوبت توئه ✨</h2>
+                <input id="firstName" type="text" placeholder="نام">
+                <input id="lastName" type="text" placeholder="نام خانوادگی">
+                <input id="phone" type="tel" placeholder="شماره موبایل">
+                <button onclick="finishInvitation()">ثبت دعوت 💌</button>
+            </div>
+        </section>
+
+        <section class="screen" id="final">
+            <div class="card final-card">
+                <div class="final-animation">🍂 ❤️ 🍁</div>
+                <h1>دعوتت ثبت شد ❤️</h1>
+                <p>بقیه ماجرا را به زودی می‌فهمی...</p>
+                <p class="small">منتظر پیامک باش 😉</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
