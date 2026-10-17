@@ -1,0 +1,275 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #fff;
+
+    background:
+        radial-gradient(circle at 20% 20%, #74421e 0%, transparent 35%),
+        linear-gradient(135deg, #20120c, #512919, #28130b);
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    max-width: 520px;
+}
+
+.screen.active {
+    display: block;
+    animation: appear 0.7s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    padding: 32px 24px;
+    text-align: center;
+    border-radius: 28px;
+
+    background: rgba(57, 30, 18, 0.88);
+    border: 1px solid rgba(255, 199, 125, 0.3);
+
+    box-shadow: 0 20px 60px #0007;
+    backdrop-filter: blur(12px);
+}
+
+h1, h2 {
+    color: #ffd18b;
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+p {
+    line-height: 2;
+    color: #f5dfc8;
+    margin-bottom: 22px;
+}
+
+button {
+    border: 0;
+    border-radius: 16px;
+    padding: 14px 20px;
+    font: bold 16px Tahoma, sans-serif;
+    cursor: pointer;
+    color: #371b0e;
+
+    background: linear-gradient(135deg, #ffdc9d, #e99a4a);
+
+    transition: transform 0.25s, filter 0.25s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.character {
+    min-height: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 90px;
+    margin-bottom: 16px;
+    transition: transform 0.4s;
+}
+
+.character:hover {
+    transform: scale(1.08);
+}
+
+.choices {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.choices button {
+    min-height: 60px;
+}
+
+.yes-no {
+    position: relative;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.yes {
+    background: linear-gradient(135deg, #ffdf97, #e88a36);
+}
+
+.no {
+    background: #583321;
+    color: white;
+    border: 1px solid #9a6540;
+}
+
+.outfit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.outfit-grid button {
+    color: #fff1de;
+    background: linear-gradient(135deg, #754222, #a55d2f);
+}
+
+.continue {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.continue:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 14px;
+    padding: 15px;
+    border-radius: 13px;
+    border: 1px solid #956745;
+    background: #321b11;
+    color: white;
+    font: 16px Tahoma, sans-serif;
+    text-align: right;
+}
+
+input::placeholder {
+    color: #c9aa8e;
+}
+
+input:focus {
+    outline: 2px solid #e9a65e;
+}
+
+.falling-leaves {
+    position: fixed;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    word-spacing: 20px;
+    pointer-events: none;
+    z-index: 5;
+    animation: leafFall 12s linear infinite;
+}
+
+@keyframes leafFall {
+    from {
+        transform: translateY(-20px) rotate(0deg);
+    }
+
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+.mystery-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+.final-animation {
+    font-size: 50px;
+    margin-bottom: 18px;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.small {
+    font-size: 14px;
+    color: #d4b69a;
+}
+
+@media (max-width: 600px) {
+    #app {
+        padding: 14px;
+    }
+
+    .card {
+        padding: 26px 17px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    .character {
+        font-size: 78px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 13px 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
