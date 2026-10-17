@@ -1,4 +1,3 @@
-// اطلاعات انتخاب‌شده در طول دعوتنامه
 const invitationData = {
     gender: null,
     outfit: null,
@@ -6,7 +5,6 @@ const invitationData = {
     gift: null
 };
 
-// هشت استایل لباس و اکسسوری
 const outfits = {
     angel: {
         label: "فرشته",
@@ -50,7 +48,7 @@ const outfits = {
     }
 };
 
-// ظاهر اکسسوری روی کاراکتر
+/* استایل آیتم‌های لباس روی کاراکتر */
 const characterStyle = document.createElement("style");
 
 characterStyle.textContent = `
@@ -81,12 +79,7 @@ characterStyle.textContent = `
     animation: outfitPop 0.45s ease both;
 }
 
-.item-angel {
-    top: -5px;
-    right: 22px;
-    font-size: 37px;
-}
-
+.item-angel,
 .item-devil {
     top: -5px;
     right: 22px;
@@ -99,12 +92,7 @@ characterStyle.textContent = `
     font-size: 34px;
 }
 
-.item-formal {
-    top: 57px;
-    left: calc(50% - 18px);
-    font-size: 34px;
-}
-
+.item-formal,
 .item-casual {
     top: 57px;
     left: calc(50% - 18px);
@@ -134,6 +122,7 @@ characterStyle.textContent = `
         opacity: 0;
         scale: 0.5;
     }
+
     to {
         opacity: 1;
         scale: 1;
@@ -143,8 +132,53 @@ characterStyle.textContent = `
 
 document.head.appendChild(characterStyle);
 
+/* ساخت برگ‌های پاییزی مستقل */
+function setupFallingLeaves() {
+    const container = document.querySelector(".falling-leaves");
 
-// جابه‌جایی بین صفحه‌ها
+    if (!container) return;
+
+    const leafTypes = ["🍂", "🍁", "🍃"];
+
+    container.replaceChildren();
+
+    for (let i = 0; i < 22; i++) {
+        const leaf = document.createElement("span");
+
+        leaf.className = "leaf";
+
+        leaf.textContent =
+            leafTypes[Math.floor(Math.random() * leafTypes.length)];
+
+        leaf.style.left = `${Math.random() * 100}%`;
+
+        leaf.style.fontSize =
+            `${16 + Math.random() * 16}px`;
+
+        leaf.style.opacity =
+            `${0.45 + Math.random() * 0.45}`;
+
+        /* سرعت مستقل هر برگ */
+        leaf.style.animationDuration =
+            `${16 + Math.random() * 14}s`;
+
+        /* شروع نامنظم؛ برگ‌ها با هم سقوط نمی‌کنند */
+        leaf.style.animationDelay =
+            `${-Math.random() * 28}s`;
+
+        /* مسیر حرکت متفاوت */
+        leaf.style.setProperty(
+            "--drift",
+            `${Math.round(Math.random() * 160 - 80)}px`
+        );
+
+        container.appendChild(leaf);
+    }
+}
+
+setupFallingLeaves();
+
+/* جابه‌جایی بین صفحه‌های دعوتنامه */
 function nextStep(screenId) {
     const target = document.getElementById(screenId);
 
@@ -165,8 +199,7 @@ function nextStep(screenId) {
     });
 }
 
-
-// انتخاب دختر یا پسر
+/* انتخاب جنسیت */
 function selectGender(gender) {
     if (gender !== "female" && gender !== "male") {
         return;
@@ -180,14 +213,11 @@ function selectGender(gender) {
     nextStep("invite");
 }
 
-
-// نمایش کاراکتر و آیتم انتخاب‌شده
+/* نمایش کاراکتر و آیتم لباس */
 function updateCharacter(elementId) {
     const character = document.getElementById(elementId);
 
-    if (!character) {
-        return;
-    }
+    if (!character) return;
 
     const baseEmoji =
         invitationData.gender === "female"
@@ -215,12 +245,9 @@ function updateCharacter(elementId) {
     `;
 }
 
-
-// انتخاب لباس
+/* انتخاب یکی از هشت استایل */
 function selectOutfit(outfitId) {
-    if (!outfits[outfitId]) {
-        return;
-    }
+    if (!outfits[outfitId]) return;
 
     invitationData.outfit = outfitId;
 
@@ -235,8 +262,7 @@ function selectOutfit(outfitId) {
     }
 }
 
-
-// انتخاب مکان
+/* انتخاب مکان */
 function selectPlace(place) {
     const allowedPlaces = [
         "کافه",
@@ -245,29 +271,23 @@ function selectPlace(place) {
         "مکان گردشگری"
     ];
 
-    if (!allowedPlaces.includes(place)) {
-        return;
-    }
+    if (!allowedPlaces.includes(place)) return;
 
     invitationData.place = place;
 
     nextStep("mystery");
 }
 
-
-// انتخاب هدیه
+/* انتخاب هدیه */
 function selectGift(gift) {
-    if (gift !== "گل" && gift !== "شکلات") {
-        return;
-    }
+    if (gift !== "گل" && gift !== "شکلات") return;
 
     invitationData.gift = gift;
 
     nextStep("info");
 }
 
-
-// تبدیل ارقام فارسی و عربی به انگلیسی
+/* تبدیل اعداد فارسی و عربی به انگلیسی */
 function normalizeDigits(value) {
     const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
     const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
@@ -281,8 +301,7 @@ function normalizeDigits(value) {
         );
 }
 
-
-// بررسی مشخصات نهایی
+/* بررسی فرم پایانی */
 function finishInvitation() {
     const firstName =
         document.getElementById("firstName").value.trim();
@@ -316,7 +335,6 @@ function finishInvitation() {
         return;
     }
 
-    // آماده‌سازی اطلاعات برای اتصال به سرویس ارسال
     const submission = {
         firstName,
         lastName,
@@ -327,21 +345,28 @@ function finishInvitation() {
         gift: invitationData.gift
     };
 
-    // فعلاً فقط در حافظه مرورگر این مرحله را تکمیل می‌کنیم.
-    // ارسال اطلاعات به تو در مرحله اتصال سرویس انجام می‌شود.
+    /*
+      در این نسخه اطلاعات فقط آماده می‌شود.
+      ارسال واقعی به صاحب سایت هنوز تنظیم نشده است.
+    */
     console.log("Invitation data prepared:", submission);
 
-    document.querySelector("#final h1").textContent =
-        "دعوتت آماده شد ❤️";
+    const finalTitle = document.querySelector("#final h1");
+    const finalMessage = document.querySelector("#final .small");
 
-    document.querySelector("#final .small").textContent =
-        "این نسخه آزمایشی است؛ ارسال اطلاعات هنوز فعال نشده.";
+    if (finalTitle) {
+        finalTitle.textContent = "دعوتت آماده شد ❤️";
+    }
+
+    if (finalMessage) {
+        finalMessage.textContent =
+            "این نسخه آزمایشی است؛ ارسال اطلاعات هنوز فعال نشده.";
+    }
 
     nextStep("final");
 }
 
-
-// دکمه فراری «نه»
+/* دکمه فراری «نه» */
 const noButton = document.getElementById("noButton");
 
 if (noButton) {
@@ -358,18 +383,17 @@ if (noButton) {
             container.clientHeight - noButton.offsetHeight
         );
 
-        const left = Math.random() * maxLeft;
-        const top = Math.random() * maxTop;
+        noButton.style.left =
+            `${Math.random() * maxLeft}px`;
 
-        noButton.style.left = `${left}px`;
-        noButton.style.top = `${top}px`;
+        noButton.style.top =
+            `${Math.random() * maxTop}px`;
     };
 
     noButton.style.left = "62%";
     noButton.style.top = "10px";
 
     noButton.addEventListener("mouseenter", moveNoButton);
-
     noButton.addEventListener("click", moveNoButton);
 
     noButton.addEventListener("touchstart", event => {
